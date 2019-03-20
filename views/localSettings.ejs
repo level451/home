@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<script src="/javascripts/cs6.js"> </script>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MC CS6 InitSettings</title>
+    <link rel="icon" href="./images/favicon.ico" type="image/ico" sizes="16x16">
+</head>
+<body>
+<%- include("theme/"+localSettings.theme.theme+"/header")%>
+<%include leftMenu.ejs%>
+<form enctype='application/json' method="POST" action="/localSettings">
+
+<%for (var section in localSettings) { %>
+
+    <h3 align="center"><%=section%></h3>
+
+    <div style="text-align: center">
+        <%=localSettings[section].Description%>
+        <hr width="50%"><br>
+
+    </div>
+
+    <%for (var property in localSettings[section]) { %>
+            <%if(property != 'Description'){%>
+            <%=property%> <input type="text" name='<%=section+'['+property+']'%>' value ='<%=localSettings[section][property]%>'><br>
+
+    <%}}%>
+<hr>
+    <%}%>
+
+    <%//=JSON.stringify(localSettings)%>
+
+    <input type="submit" />
+</form>
+</body>
+</html>

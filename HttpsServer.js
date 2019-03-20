@@ -163,7 +163,7 @@ const server = https.createServer({
     key: fs.readFileSync('certs/privkey.pem'),
     cert: fs.readFileSync('certs/fullchain.pem'),
     ca: fs.readFileSync('certs/chain.pem')
-}, app).listen(5000, function (err) {
+}, app).listen(((localSettings)?localSettings.webServer.port:2112), function (err) {
     if (err) {
         throw err
     }
