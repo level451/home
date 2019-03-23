@@ -1,0 +1,42 @@
+<div class="cs6">
+    <div class="cs6inner">
+        <br>
+        Name:    <%=((systemInfo.machineInfo.localSettings)?systemInfo.machineInfo.localSettings.Location.Theater:'Info Not Available')%><br>
+        Unit ID: <%=systemInfo.mac%>
+
+        <br><br>
+        CS6
+        <%if (systemInfo.connectionState == true){%>
+          &nbsp;&nbsp;    <button class="indicatoron">Online</button>
+        <%} else {%>
+
+             &nbsp;&nbsp;  <button class="indicatoroff">Offline</button>
+        <%}%>
+        <br>
+        <%if (systemInfo.error){%>
+
+        <%}%>
+        <br>
+        R6s Connected: 6
+        <br>
+    </div>
+    <div class="cs6wrapper">
+        <p> Event Log</p>
+        <div class = "cs6log">
+
+
+
+        </div>
+
+        <div id="cs6button">
+            <br>
+            <button class="button"  type="button" onclick='window.open("ssh?mac=<%=systemInfo.mac%>")')>Local SSH</button><br>
+            Mongo Server:<%=((systemInfo.machineInfo.localSettings)?systemInfo.machineInfo.localSettings.MongoServer.Address:'Info Not Available')%><br>
+            Local Network Adapters:<br>
+            <%for (var i=0; i< systemInfo.machineInfo.network.length;++i){%>
+            <%=((systemInfo.machineInfo.network)?systemInfo.machineInfo.network[i].name+':'+systemInfo.machineInfo.network[i].address:'Info Not Available')%><br>
+            <%}%>
+        </div>
+    </div>
+
+</div>

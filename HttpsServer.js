@@ -94,26 +94,13 @@ app.get('/remote', (req, res) => {
 
 })
 app.get('/', (req, res) => {
+    res.render('ted5000.ejs',{pageName:'Ted5000',
+        sid:req.Session,
+        userDocument:req.userDocument
+    });
 
-database.getSystemInfo({},(rslt)=>{
-       res.render('test.ejs',{
-            pageName:'CS6 View',
-            sid:req.Session,
-           systemInfo:rslt,
-           userDocument:req.userDocument
-
-        })
 
 })
-    //
-    // authenticator.qrcodeFromSecret('KQ2HCKLCGF6VER3XERVU6URXNM').then((qrcode) => {res.render('test.ejs',{
-    //     qrcode:qrcode,
-    //     pageName:'Master Console',
-    //     sid:req.Session
-    //
-    // })
-
-    })
 
 
 app.get('/ssh', (req, res) => {
@@ -125,12 +112,7 @@ app.get('/ssh', (req, res) => {
         userDocument:req.userDocument
     });
 })
-app.get('/cookie',(req,res) =>{
 
-    res.cookie('name', 'I should not be able to read this is the browser',{secure:true,signed:true}).
-    cookie('unsecure','hashy',{secure:true,signed:false}).
-    send('cookie set'); //Sets name = express
-})
 app.get('/login', function (req, res) {
     console.log('at login')
     res.clearCookie("Authorized");
@@ -185,8 +167,8 @@ function processLogin(req,res){
         dbo.collection('Users').findOne({userName:req.body.userName},function(err,rslt){
             console.log(rslt)
             if (rslt != null && authenticator.authenticate(rslt.secretKey,req.body.authenticationCode)){
-                res.cookie('Authorized','true',{secure:usingHttps,signed:true})
-                res.cookie('uid',rslt._id,{secure:usingHttps,signed:true})
+                res.cookie('Authorized','true',{maxAge:1000*60*60*24*30,secure:usingHttps,signed:true})
+                res.cookie('uid',rslt._id,{maxAge:1000*60*60*24*30,secure:usingHttps,signed:true})
 
                 res.redirect('/')
 

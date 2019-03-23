@@ -6,7 +6,7 @@ global.localSettingsDescription = {webServer:{
         theme:{Description:"Name of the Web theme style",theme:'Default'},
     MongoServer:{
         Description:"Infomation about the Mongo Server",
-        Address:'localhost',
+        Address:'',
         useTingoDB:'true'}
 
 
@@ -18,15 +18,26 @@ global.localSettingsDescription = {webServer:{
 //console = require('./newConsole') //comment this line to use the regular console.log
 
 try{
-    global.localSettings = JSON.parse(require('fs').readFileSync('localSettings.JSON', 'utf8'))
+    global.localSettings = require('./localSettings')
 } catch(err){
     console.log('Local Settings Failed to Load - Going into setting mode')
     global.localSettings = false
 }
 
-//ted = require('./ted5000')
+ted = require('./ted5000')
  webSocketServer = require('./WebSocketServer')
 const httpsServer = require('./HttpsServer')
 database = require('./Database')
 
-// if this doesn't load httpsServer will only serve the localSettings page
+
+
+
+database.getMongoConnection('Home',function(err,dbo){
+    if (err){console.error(err)
+    }else
+    {
+        global.dbo = dbo
+    }
+
+})
+

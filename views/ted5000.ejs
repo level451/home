@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<script>
+    sid = "<%=sid%>"+Math.random();
+</script>
+<script src="/javascripts/ted5000.js"> </script>
+<script type="text/javascript" src="/javascripts/ejs.min.js"></script>
+<link rel="stylesheet" href="./stylesheets/test.css">
+<link rel="stylesheet" href="./stylesheets/main.css">
+
+<head>
+    <title>Ted5000</title>
+    <link rel="icon" href="./images/favicon.ico" type="image/ico" sizes="16x16">
+</head>
+
+
+<body onload="load()">
+    <%- include("theme/"+userDocument.preferences.webTheme+"/header.ejs")%>
+<!-- line below is commented out-->
+    <%include leftMenu.ejs%>
+
+   <div class = "outer">
+
+       Unit Info
+       <br>
+
+    </div>
+
+    <div class="unitInfo" id="unitInfo">
+
+
+
+    </div>
+
+    <canvas id="secondGraph" width="1000" height="1000"  >
+
+    </canvas>
+
+</body>
+
+
+

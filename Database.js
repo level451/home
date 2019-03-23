@@ -1,6 +1,5 @@
 
-//const MongoClient = require('mongodb').MongoClient;
-const MongoClient=require('tingodb')()
+const MongoClient = require('mongodb').MongoClient;
 //const assert = require('assert');
 /* const requiredCollections
 Each object in the array requiredCollections is verified that it exists in the database
@@ -42,13 +41,9 @@ if (!localSettings){
 
 } else
 {
-    if (localSettings.MongoServer.useTingoDB == 'true'){
-        var url = 'mongodb://'+localSettings.MongoServer.Address+':27017'
-    }else
 
-    {
-        var url = ''
-    }
+        var url = 'mongodb://'+localSettings.MongoServer.Address+':27017'
+
 }
 
 var client
@@ -56,20 +51,23 @@ var client
 
 // Use connect method to connect to the server
 exports.getMongoConnection = function(databaseName,cb){
-    MongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
-        if (err){
 
-            cb(err)
-        } else
-        {
-            console.log("Connected successfully to Mongo Server");
-            checkIfCollectionsExist(client.db(databaseName))
-            clearSystemInfoConnectionState(client.db(databaseName)); // reset the connection state of everything connected on restart
-            cb(err,client.db(databaseName))
+        MongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
+            if (err){
 
-        }
+                cb(err)
+            } else
+            {
+                console.log("Connected successfully to Mongo Server");
+                checkIfCollectionsExist(client.db(databaseName))
+                clearSystemInfoConnectionState(client.db(databaseName)); // reset the connection state of everything connected on restart
+                cb(err,client.db(databaseName))
 
-    })
+            }
+
+        })
+
+
 
     function checkIfCollectionsExist(dbo){
         dbo.command({listCollections:1},function(err,rslt){
