@@ -19,10 +19,17 @@ function load() {
 
 // start websocket connection
 function startWebsocket(){
-    wss = new WebSocket('wss://'+ window.location.hostname + ':'+window.location.port+
-        '/?browser=true&sid='+sid+'&subscribeEvents=["secondData"]')
+    if (location.protocol === 'https:') {
 
-    console.log('Using Secure Websocket')
+        wss = new WebSocket('wss://' + window.location.hostname + ':' + window.location.port +
+            '/?browser=true&sid=' + sid + '&subscribeEvents=["secondData"]')
+        console.log('Using Secure Websocket')
+    }else{
+        wss = new WebSocket('ws://' + window.location.hostname + ':' + window.location.port +
+            '/?browser=true&sid=' + sid + '&subscribeEvents=["secondData"]')
+        console.log('Using Standard Websocket')
+    }
+
 
     wss.onopen = function(){
         console.log('websocket open')
@@ -30,7 +37,6 @@ function startWebsocket(){
     wss.onmessage = function(evt){
         data = JSON.parse(evt.data)
         wsEmitter.emit(Object.keys(data)[0],data[Object.keys(data)[0]])
-        //console.log("Received:"+Object.keys(data)[0])
         //console.log(evt.data)
     }
     wss.onerror = function(err){
@@ -127,13 +133,13 @@ function drawSecondDataGraph(){
     secondDataGraphContext = document.getElementById('secondGraph').getContext("2d")
     secondDataGraphContext.clearRect(0, 0, secondDataGraph.width, secondDataGraph.height);
     secondDataGraphContext.beginPath();
-    secondDataGraphContext.moveTo(0,secondDataGraph.height-(secondData[0][0].power))
+    secondDataGraphContext.moveTo(0,secondDataGraph.height-(secondData[0][0].power/4))
     for (var i = 0;i< secondData.length;++i){
         if (secondData[i][0]){
-            secondDataGraphContext.lineTo(i,secondDataGraph.height-(secondData[i][0].power))
+            secondDataGraphContext.lineTo(i,secondDataGraph.height-(secondData[i][0].power/4))
         } else
         {
-            console.log('No data',secondData[i])
+           // console.log('No data',secondData[i])
         }
 
     }

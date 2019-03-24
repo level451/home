@@ -115,15 +115,16 @@ myEmitter.on('cs6Error',(data,id)=>{
 function brodcastSubsribedEventsToBrowser(emitterId,data){
     // alse send to any browser subscribed to the emitterId events
     for (var id in webSocket) {
-        //console.log(eachws.sid,eachws.mac,eachws)
+        //console.log(webSocket[id].subscribeEvents,emitterId)
         if (webSocket[id].browser && webSocket[id].subscribeEvents.includes(emitterId)){
-           //check each websocket to see if isa a browser
+            //check each websocket to see if isa a browser
            // then check if its subscribedEvents array includes the event(emitterId)
            // if does send the data to it
             //
             if (webSocket[id].readyState == 1){
                 try{
                     webSocket[id].send(JSON.stringify({[emitterId]:data}))
+
                 } catch(e){
                     console.log('Failed to send websocket',webSocket[mac].readyState,mac,data)
                 }
@@ -136,6 +137,7 @@ function brodcastSubsribedEventsToBrowser(emitterId,data){
 
 }
 ted.on('secondData',function(secondData){
+
     brodcastSubsribedEventsToBrowser('secondData',secondData)
-   // console.log(secondData)
+  // console.log(secondData)
 })

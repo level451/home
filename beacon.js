@@ -1,3 +1,5 @@
+console = require('./common/newConsole/newConsole')
+
 const dgram = require('dgram');
 const udpSocket = dgram.createSocket({type:'udp4',reuseAddr:true});
 udpSocket.bind(4001,()=>{

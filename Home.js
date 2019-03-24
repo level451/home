@@ -15,7 +15,8 @@ global.localSettingsDescription = {webServer:{
 
 
 // First set the console.log handler
-//console = require('./newConsole') //comment this line to use the regular console.log
+//comment this line to use the regular console.log
+console = require('./common/newConsole/newConsole')
 
 try{
     global.localSettings = require('./localSettings')
@@ -26,7 +27,34 @@ try{
 
 ted = require('./ted5000')
  webSocketServer = require('./WebSocketServer')
-const httpsServer = require('./HttpsServer')
+//const y = require('./HttpsServer')
+//const httpsServer = new y()
+const httpsServer = require('./HttpsServer')({useHttps:false})
+
+
+httpsServer.use(function(req, res, next) {
+    console.log('here ---',req.Session,req.sessionId,req.userDocument)
+    next();
+})
+
+httpsServer.get('/t', (req, res) => {
+    res.status(200).send(':)')
+
+
+
+})
+httpsServer.get('/', (req, res) => {
+    res.render('ted5000.ejs', {
+        pageName: 'Ted5000',
+        sid: req.Session,
+        userDocument: req.userDocument
+    });
+
+
+})
+
+
+httpsServer.on('test',function(d){console.log('event',d)})
 database = require('./Database')
 
 
