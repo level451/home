@@ -16,7 +16,7 @@ global.localSettingsDescription = {webServer:{
 
 // First set the console.log handler
 //comment this line to use the regular console.log
-console = require('./common/newConsole/newConsole')
+//console = require('./common/newConsole/newConsole')
 
 try{
     global.localSettings = require('./localSettings')
@@ -46,7 +46,7 @@ httpsServer.get('/t', (req, res) => {
 httpsServer.get('/', (req, res) => {
     res.render('ted5000.ejs', {
         pageName: 'Ted5000',
-        sid: req.Session,
+        sid: req.sessionId,
         userDocument: req.userDocument
     });
 

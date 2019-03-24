@@ -181,6 +181,9 @@ module.exports = function(options) {
                         if (rslt == null) {
                             console.log('Session Not found', rslt);
                         }
+                        if (rslt.killSession == true){
+                            res.redirect('/login')
+                        }
                         req.sessionId = rslt._id
                         next();
                     })

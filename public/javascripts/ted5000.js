@@ -22,11 +22,11 @@ function startWebsocket(){
     if (location.protocol === 'https:') {
 
         wss = new WebSocket('wss://' + window.location.hostname + ':' + window.location.port +
-            '/?browser=true&sid=' + sid + '&subscribeEvents=["secondData"]')
+            '/?browser=true&sid=' + sid + '&subscribeEvents=[{"ted":"secondData"}]')
         console.log('Using Secure Websocket')
     }else{
         wss = new WebSocket('ws://' + window.location.hostname + ':' + window.location.port +
-            '/?browser=true&sid=' + sid + '&subscribeEvents=["secondData"]')
+            '/?browser=true&sid=' + sid + '&subscribeEvents=[{"ted":"secondData"}]')
         console.log('Using Standard Websocket')
     }
 
@@ -126,7 +126,7 @@ wsEmitter.on('secondData',function(newSecondData) {
     }
     secondData.push(newSecondData)
     drawSecondDataGraph()
-    //console.log(new Date(newSecondData.time)-startTime,newSecondData)
+//    console.log(new Date(newSecondData.time)-startTime,newSecondData)
 })
 function drawSecondDataGraph(){
     secondDataGraph = document.getElementById('secondGraph')

@@ -21,13 +21,43 @@ exports.startWebSocketServer = function(server){
         ws.sid = parameters.sid;
         ws.isAlive = true;
         ws.remoteAddress = ws._socket.remoteAddress;
+        ws.id = ws.sid;
 
         if (parameters.subscribeEvents){
             ws.subscribeEvents=JSON.parse(parameters.subscribeEvents)
             console.log('Browse page subscribed:',ws.subscribeEvents)
+            for (var i = 0;i<ws.subscribeEvents.length;++i){
+                let subscribeObject = Object.getOwnPropertyNames(ws.subscribeEvents[i])[0] // parse the property name
+                console.log('**',global[subscribeObject] instanceof require("events").EventEmitter)
+                // check to see is the object we are tring to subscribe to is an eventEmitter
+                if (global[subscribeObject] instanceof require("events").EventEmitter){
+                    // wow this took forever to learn the syntax
+                    // global[subscribeObject] is the eventemitter object we are subscribing to
+                    // after we subscribe we are using bind so the function has access to the
+                    // event the was subscribe to and the websocket to send it to
+
+                    // store the function name so we can unsuscribe later
+                    ws.subscribeEvents[i].function =  function(evtData,f){
+                        console.log('adfg',new Date())
+                        if (this.ws.readyState == 1){
+                            try{
+                                this.ws.send(JSON.stringify({[this.event]:evtData}))
+
+                            } catch(e){
+                                console.log('Failed to send websocket',webSocket[mac].readyState,mac,data)
+                            }
+
+                        }
+
+                    }.bind({object:subscribeObject,event:ws.subscribeEvents[i][subscribeObject],ws:ws})
+
+                    global[subscribeObject].on(ws.subscribeEvents[i][subscribeObject],ws.subscribeEvents[i].function)
+                    console.log('Bound Websocket '+ws.id+' to event '+ws.subscribeEvents[i][subscribeObject]+' in object:'+subscribeObject)
+                }
+
+            }
         }
 
-            ws.id = ws.sid;
             webSocket[ws.sid]=ws;
 
 
@@ -43,7 +73,12 @@ exports.startWebSocketServer = function(server){
         });
         ws.on('pong', heartbeat);
         ws.on('close', function(){
-            if (ws.id && webSocket[ws.id]){
+           // remove all eventlisteners we subscribed to
+            for (var i = 0;i<ws.subscribeEvents.length;++i) {
+                let subscribeObject = Object.getOwnPropertyNames(ws.subscribeEvents[i])[0] // parse the property name
+                global[subscribeObject].removeListener(ws.subscribeEvents[i][subscribeObject],ws.subscribeEvents[i].function)
+            }
+                if (ws.id && webSocket[ws.id]){
                 delete webSocket[ws.id];
                 console.log('Removeing websocket from active object',ws.id)
             } else
@@ -113,6 +148,7 @@ myEmitter.on('cs6Error',(data,id)=>{
 })
 //,{projection:{timeStamp:1,_id:0}}
 function brodcastSubsribedEventsToBrowser(emitterId,data){
+  return
     // alse send to any browser subscribed to the emitterId events
     for (var id in webSocket) {
         //console.log(webSocket[id].subscribeEvents,emitterId)
