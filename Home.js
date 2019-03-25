@@ -1,5 +1,6 @@
 // localSettingsDescrition describes all the global localSettings values and thier defaults
 // modify this object to add to the local settings
+console.log(__dirname)
 global.localSettingsDescription = {webServer:{
         Description:"HTTPS Server Listen Port",
         port:'2112'},
@@ -27,23 +28,23 @@ try{
 
 ted = require('./ted5000')
  webSocketServer = require('./WebSocketServer')
+webSocketServer.on('test',function(x){console.log(x)})
 //const y = require('./HttpsServer')
 //const httpsServer = new y()
-const httpsServer = require('./HttpsServer')({useHttps:false})
+const httpServer = require('./common/httpServer/httpServer')({useHttps:false})
 
 
-httpsServer.use(function(req, res, next) {
-    console.log('here ---',req.Session,req.sessionId,req.userDocument)
+httpServer.use(function(req, res, next) {
     next();
 })
 
-httpsServer.get('/t', (req, res) => {
+httpServer.get('/t', (req, res) => {
     res.status(200).send(':)')
 
 
 
 })
-httpsServer.get('/', (req, res) => {
+httpServer.get('/', (req, res) => {
     res.render('ted5000.ejs', {
         pageName: 'Ted5000',
         sid: req.sessionId,
@@ -54,7 +55,7 @@ httpsServer.get('/', (req, res) => {
 })
 
 
-httpsServer.on('test',function(d){console.log('event',d)})
+httpServer.on('test',function(d){console.log('event',d)})
 database = require('./Database')
 
 

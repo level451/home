@@ -1,5 +1,6 @@
 
 const MongoClient = require('mongodb').MongoClient;
+module.exports.ObjectID = require('mongodb').ObjectID
 //const assert = require('assert');
 /* const requiredCollections
 Each object in the array requiredCollections is verified that it exists in the database

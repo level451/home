@@ -133,10 +133,10 @@ function drawSecondDataGraph(){
     secondDataGraphContext = document.getElementById('secondGraph').getContext("2d")
     secondDataGraphContext.clearRect(0, 0, secondDataGraph.width, secondDataGraph.height);
     secondDataGraphContext.beginPath();
-    secondDataGraphContext.moveTo(0,secondDataGraph.height-(secondData[0][0].power/4))
+    secondDataGraphContext.moveTo(0,secondDataGraph.height-(secondData[0][0].power/10))
     for (var i = 0;i< secondData.length;++i){
         if (secondData[i][0]){
-            secondDataGraphContext.lineTo(i,secondDataGraph.height-(secondData[i][0].power/4))
+            secondDataGraphContext.lineTo(i,secondDataGraph.height-(secondData[i][0].power/10))
         } else
         {
            // console.log('No data',secondData[i])
