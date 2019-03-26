@@ -22,11 +22,11 @@ function startWebsocket(){
     if (location.protocol === 'https:') {
 
         wss = new WebSocket('wss://' + window.location.hostname + ':' + window.location.port +
-            '/?browser=true&sid=' + sid + '&subscribeEvents=[{"ted":"secondData"}]')
+            '/?browser=true&sid=' + sid + '&subscribeEvents=[{"ted":"secondData"},{"mx60":"data"}]')
         console.log('Using Secure Websocket')
     }else{
         wss = new WebSocket('ws://' + window.location.hostname + ':' + window.location.port +
-            '/?browser=true&sid=' + sid + '&subscribeEvents=[{"ted":"secondData"}]')
+            '/?browser=true&sid=' + sid + '&subscribeEvents=[{"ted":"secondData"},{"mx60":"data"}]')
         console.log('Using Standard Websocket')
     }
 
@@ -37,7 +37,7 @@ function startWebsocket(){
     wss.onmessage = function(evt){
         data = JSON.parse(evt.data)
         wsEmitter.emit(Object.keys(data)[0],data[Object.keys(data)[0]])
-        //console.log(evt.data)
+        console.log(evt.data)
     }
     wss.onerror = function(err){
         console.log('websocket error:'+err)
