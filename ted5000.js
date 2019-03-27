@@ -50,3 +50,7 @@ function go(MTU){
         })
     }
 )}
+tedEmitter.test  = (d)=>{
+    console.log(d)
+    return ('returned:'+d)
+}

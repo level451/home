@@ -1,6 +1,6 @@
-// localSettingsDescrition describes all the global localSettings values and thier defaults
+// First set the console.log handler
 // modify this object to add to the local settings
-console.log(__dirname)
+// localSettingsDescrition describes all the global localSettings values and thier defaults
 const localSettingsDescription = {
     webServer: {
         Description: "HTTPS Server Listen Port",
@@ -19,19 +19,21 @@ const localSettingsDescription = {
 
 
 
-// First set the console.log handler
+//webSocketServer = require('./WebSocketServer')
 //comment this line to use the regular console.log
-console = require('./newConsole')
+console = require('@level451/newConsole')
 loadLocalSettings()
+// const EventEmitter = require('events');
+//  mx60 = new EventEmitter();
+// mx60.on('data',function(x){console.log('mx60')})
 
-ted = require('./ted5000')
- //webSocketServer = require('./WebSocketServer')
+
+const webSocketServer = require('@level451/httpServer').webSocketServer
+
+//ted = require('./ted5000')
 //const y = require('./HttpsServer')
 //const httpsServer = new y()
 const httpServer = require('@level451/httpServer').start({useHttps:true,port:2112})
-const webSocketServer = require('@level451/httpServer').webSocketServer
-webSocketServer.on('test',function(x){console.log('asdfasdf',x)})
-//webSocketServer.on('mx60',function(x){console.log('mx60')})
 
 
 httpServer.use(function(req, res, next) {
@@ -45,8 +47,8 @@ httpServer.get('/t', (req, res) => {
 
 })
 httpServer.get('/', (req, res) => {
-    res.render('ted5000.ejs', {
-        pageName: 'Ted5000',
+    res.render('homePowerStatus.ejs', {
+        pageName: 'Power Status',
         sid: req.sessionId,
         userDocument: req.userDocument
     });
