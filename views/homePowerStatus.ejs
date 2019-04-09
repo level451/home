@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <script>
-    sid = "<%=sid%>"+Math.random();
+    sid = "<%= sid %>" + Math.random();
 </script>
-<script type="module" src="/javascripts/homePowerStatus.js"> </script>
-
+<script type="module" src="/javascripts/homePowerStatus.js"></script>
 
 
 <link rel="stylesheet" href="./stylesheets/test.css">
@@ -15,27 +14,28 @@
 </head>
 
 
-<body onload="load()">
-    <%- include("theme/"+userDocument.preferences.webTheme+"/header.ejs")%>
+<%- include("theme/"+userDocument.preferences.webTheme+"/header.ejs") %>
 <!-- line below is commented out-->
-    <%include leftMenu.ejs%>
+<% include leftMenu.ejs %>
 
-   <div class = "outer">
+<div class="outer">
 
-       Unit Info
-       <br>
+    Unit Info
+    <br>
 
-    </div>
+</div>
 
-    <div class="unitInfo" id="unitInfo">
+<div class="unitInfo" id="unitInfo">
 
 
+</div>
+<canvas id="powerGaugeCanvas" width="1000" height="100" style="border:1px solid #000000;">
 
-    </div>
+</canvas>
+<canvas id="secondGraph" width="1000" height="500" style="border:1px solid #000000;">
 
-    <canvas id="secondGraph" width="1000" height="1000"  >
 
-    </canvas>
+</canvas>
 
 </body>
 

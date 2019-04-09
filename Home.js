@@ -18,11 +18,12 @@ const localSettingsDescription = {
 }
 
 
+loadLocalSettings()
 
 //webSocketServer = require('./WebSocketServer')
 //comment this line to use the regular console.log
+
 console = require('@level451/newConsole')
-loadLocalSettings()
 // const EventEmitter = require('events');
 //  mx60 = new EventEmitter();
 // mx60.on('data',function(x){console.log('mx60')})
