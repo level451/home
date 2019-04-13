@@ -34,7 +34,7 @@ const webSocketServer = require('@level451/httpServer').webSocketServer
 //ted = require('./ted5000')
 //const y = require('./HttpsServer')
 //const httpsServer = new y()
-const httpServer = require('@level451/httpServer').start({useHttps:true,port:2112})
+httpServer = require('@level451/httpServer')({useHttps:true,port:2112})
 
 
 httpServer.use(function(req, res, next) {
@@ -58,7 +58,7 @@ httpServer.get('/', (req, res) => {
 })
 
 
-httpServer.on('test',function(d){console.log('event',d)})
+//httpServer.on('test',function(d){console.log('**event',d)})
 database = require('./Database')
 
 

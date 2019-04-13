@@ -1,8 +1,12 @@
-export function drawGauge(ctx, x, y, value, title) {
+export function drawGauge(ctx, x, y, value, title,max) {
 
     if (value == undefined) {
         value = 0
     }
+    if (max == undefined) {
+        max = 100
+    }
+    let scaledValue = (value/max)*100
     var rad = 25;
     ctx.fillStyle = 'black';
     ctx.font = "bold 12px Arial";
@@ -14,7 +18,7 @@ export function drawGauge(ctx, x, y, value, title) {
 
     // draw red
     ctx.beginPath();
-    ctx.strokeStyle = (value< 75)?'#00ff00':'#ff0000';
+    ctx.strokeStyle = (scaledValue< 90)?'#00ff00':'#ff0000';
     ctx.arc(x, y, rad, drawValue(0), drawValue(100));
     ctx.stroke();
 
@@ -22,11 +26,12 @@ export function drawGauge(ctx, x, y, value, title) {
     ctx.beginPath();
     ctx.strokeStyle = '#000000';
 
-    ctx.arc(x, y, rad, drawValue(value), 2.25 * Math.PI);
+    ctx.arc(x, y, rad, drawValue(scaledValue), 2.25 * Math.PI);
     ctx.stroke();
 
     function drawValue(d) {
-    if (d>100)d=100;
+        //scale d
+        if (d>100)d=100;
         return ((d / 100) * Math.PI * 1.5) + Math.PI * .75
     }
 }

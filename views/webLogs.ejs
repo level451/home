@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<script>
+    sid = "<%= sid %>" + Math.random();
+</script>
+<script type="module" src="/javascripts/webLogs.js"></script>
+
+
+<link rel="stylesheet" href="./stylesheets/test.css">
+<link rel="stylesheet" href="./stylesheets/main.css">
+
+<head>
+    <title><%=pageName%></title>
+    <link rel="icon" href="./images/favicon.ico" type="image/ico" sizes="16x16">
+</head>
+
+
+<%- include("theme/"+userDocument.preferences.webTheme+"/header.ejs") %>
+<!-- line below is commented out-->
+<% include leftMenu.ejs %>
+
+<div class="outer">
+
+    Web Session History
+    <br>
+
+</div>
+
+<div class="unitInfo" id="unitInfo">
+
+    <table width = '100%'>
+        <tbody id="sessionInfoTableBody"></tbody>
+    </table>
+</div>
+<div>
+Details:
+    <div id="test">
+
+    </div>
+
+</div>
+</body>
+
+
+
