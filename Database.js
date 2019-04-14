@@ -180,12 +180,13 @@ exports.getSystemInfo = function (filter, cb) {
         cb(outputObject);
     })
 }
-function clearSystemInfoConnectionState(db){
-        db.collection('SystemInfo').updateMany({},{$set: {connectionState:false}},(err,rslt) =>{
+function clearSystemInfoConnectionState(dbo){
+        dbo.collection('SystemInfo').updateMany({},{$set: {connectionState:false}},(err,rslt) =>{
             if (err) {
                 console.log("Problem clearing systemInfo connectionState", err)
             }
 
+            dbo.collection('requestLog').updateMany({activeWebSocket:true},{$set:{activeWebSocket:false}})
 
         })
 }

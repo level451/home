@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<script>
-    sid = "<%= sid %>" + Math.random();
-</script>
+<%- include("varsToJavascript.ejs") %>
+
 <script type="module" src="/javascripts/homePowerStatus.js"></script>
 
 
@@ -14,7 +13,7 @@
 </head>
 
 
-<%- include("theme/"+userDocument.preferences.webTheme+"/header.ejs") %>
+<%- include("theme/"+javascript.userDocument.preferences.webTheme+"/header.ejs") %>
 <!-- line below is commented out-->
 <% include leftMenu.ejs %>
 
