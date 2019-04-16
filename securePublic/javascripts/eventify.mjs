@@ -36,7 +36,6 @@ export default function (self)  {
 
     self.once = function (event, listener) {
         self.on(event, function g () {
-            console.log('------------------ONCE')
 
             self.removeListener(event, g)
             listener.apply(self, arguments)

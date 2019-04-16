@@ -1,3 +1,7 @@
+export function toMMDDHHMMSS(inDate) {
+    let d = new Date(inDate)
+    return padl(d.getMonth() + 1) + '/' + padl(d.getDate()) + ' ' + padl(d.getHours()) + ':' + padl(d.getMinutes())+ ':' + padl(d.getSeconds());
+}
 export function toMMDDHHMM(inDate) {
     let d = new Date(inDate)
     return padl(d.getMonth() + 1) + '/' + padl(d.getDate()) + ' ' + padl(d.getHours()) + ':' + padl(d.getMinutes());

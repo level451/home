@@ -17,6 +17,12 @@ const localSettingsDescription = {
     }
 };
 loadLocalSettings();
+database = require('@level451/httpServer').database;
+database.on('ff',()=>{console.log('aaaaaaaaaaaaaaaaaaaaaaafffffffffffffffffffffffff')})
+database.getMongoConnection('Home').then((dbo)=> {
+    global.dbo = dbo
+   //  dbo.collection('Session').find({'urlHistory.requestId':database.ObjectID('5cb4bc1d4b02bd3f4cf16921')}).toArray().then((r)=>{console.log('-=---------',r)})
+})
 //comment this line to use the regular console.log
 console = require('@level451/newConsole');
 const webSocketServer = require('@level451/httpServer').webSocketServer;
@@ -29,15 +35,7 @@ httpServer.get('/', (req, res) => {
         userDocument: req.userDocument
     });
 });
-
-database = require('./Database');
-database.getMongoConnection('Home', function (err, dbo) {
-    if (err) {
-        console.error(err);
-    } else {
-        global.dbo = dbo;
-    }
-});
+httpServer.use(require('@level451/httpServer').pageNotFound)
 
 
 function loadLocalSettings() {

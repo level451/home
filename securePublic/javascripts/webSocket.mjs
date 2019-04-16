@@ -7,7 +7,7 @@ if (location.protocol === 'https:') {
     console.log('Using Secure Websocket');
 } else {
     var wss = new WebSocket('ws://' + window.location.hostname + ':' + window.location.port +
-        '/?browser=true&sid=' + sid);
+        '/?systemType=browser&id=' + sessionDocument._id + '.' + requestId);
     //+ '&subscribeEvents=' + JSON.stringify(subscribeEvents))
     console.log('Using Standard Websocket');
 }
@@ -37,7 +37,10 @@ wss.onmessage = function (evt) {
             remoteObject.createGlobalEmitterObjectFunctions(obj);
             // the we are going to use its remote emitter to emit that it is ready
             window[obj.emitterName].emit('ready', '');
-        } else {
+        } else if(obj.logOut){
+            window.location.href='/login'
+        }
+        else {
             this.emit('message', obj);
             console.log('??', obj);
         }

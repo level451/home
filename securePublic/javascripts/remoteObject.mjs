@@ -14,7 +14,7 @@ function createGlobalEmitterObjectAsncyFunctions(d) {
         window[d.emitterName][functionToCreate] = async function (...args) {
             // create a random event to subscribe to - to await the return value
             var returnEventName = Math.random().toString();
-            console.log('return event name', returnEventName)
+            console.log('Return event :'+ functionToCreate+' Once Event Name'+returnEventName)
             //send the command to the remote
             sendObject({
                 remoteAsyncFunction: true,
