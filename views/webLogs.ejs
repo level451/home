@@ -22,36 +22,59 @@
 
 </div>
 
-<div >
-    <button id = 'sessionNextRecords'><- Next </button>
-    <button id = 'sessionPrevRecords'>Prev -></button>
+<div>
+    <button id='sessionNextRecords'><- Next</button>
+    <button id='sessionPrevRecords'>Prev -></button>
 
-    <table width='100%'>
+    <table id = "sessionInfoTable" width='100%'>
         <colgroup>
-            <col  style="width: 100px;">
-            <col  style="width: 100px;">
-            <col >
-            <col  style="width: 50px;">
+            <col style="width: 100px;">
+            <col style="width: 100px;">
+            <col>
+            <col style="width: 50px;">
         </colgroup>
-        <tbody id="sessionInfoTableBody"></tbody>
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>User</th>
+            <th>Last Page</th>
+            <th>Pages</th>
+        </tr>
+
+        </thead>
     </table>
 </div>
 <hr>
-<div style ="width:100%;height: 500px;overflow:auto">
-    <button id = 'requestLogNextRecords'><- Next </button>
-    <button id = 'requestLogPrevRecords'>Prev -></button>
-
-
-    <table width='100%'>
+<div style="width:100%;height: 600px;overflow:auto">
+    <button id='requestLogNextRecords'><- Next</button>
+    <button id='requestLogPrevRecords'>Prev -></button>
+    <table id='requestLogTable' width='100%'>
         <colgroup>
-            <col  style="width: 120px;">
-            <col  style="width: 100px;">
-
-            <col  style="width: 150px;">
-            <col >
-
+            <col style="width: 120px;">
+            <col style="width: 200px;">
+            <col style="width: 150px;">
+            <col>
         </colgroup>
-        <tbody id="requestLogTableBody"></tbody>
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Page</th>
+            <th>User</th>
+            <th>IPAddress</th>
+        </tr>
+        <tr id = 'filterButtons'>
+            <th><button id="filterReset">Filter Reset</button></th>
+            <th><button id="filterPage">Filter Page</button></th>
+            <th><button id="filterUser">Filter User</button></th>
+            <th><button id="filterIpAddress">Filter IP Address</button></th>
+
+            <th><button id="filterActive">Filter Active</button></th>
+            <th><button id="filterPageNotFound">Filter Page Not Found</button></th>
+            <th><button id="filterNotAuthorized">Filter Not Authorized</button></th>
+        </tr>
+
+        </thead>
+
     </table>
 
 
