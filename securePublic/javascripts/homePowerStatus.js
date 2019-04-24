@@ -91,10 +91,12 @@ mx60.on('realTimeData', function (d) {
     graphs.drawGauge(ctx,125,50,d.C.chargerCurrent,'MX60 C',30)
     graphs.drawGauge(ctx,200,50,d.C.chargerCurrent+d.B.chargerCurrent,'MX60 Total',40)
     graphs.drawGauge(ctx,275,50,Math.round(((d.B.chargerCurrent+d.C.chargerCurrent)*d.B.batteryVoltage)),'MX60 Watts',2000)
+    graphs.drawGauge(ctx,350,50,d.B.batteryVoltage,'Battery Volts',59,48,
+        [[100,'#ff0000'],[55,'#00ff00'],[0,'#ffff00']])
 
-    graphs.drawGauge(ctx,350,50,secondData[secondData.length-1][0].power,'Power UPL',2000)
-    graphs.drawGauge(ctx,425,50,secondData[secondData.length-1][1].power,'Inv Out',1000)
-    graphs.drawGauge(ctx,500,50,secondData[secondData.length-1][2].power,'Inv In',1000)
+    graphs.drawGauge(ctx,425,50,secondData[secondData.length-1][0].power,'Power UPL',2000)
+    graphs.drawGauge(ctx,500,50,secondData[secondData.length-1][1].power,'Inv Out',1000)
+    graphs.drawGauge(ctx,575,50,secondData[secondData.length-1][2].power,'Inv In',1000)
 
     //console.log((d.B.chargerCurrent+d.C.chargerCurrent)*d.B.batteryVoltage)
 })

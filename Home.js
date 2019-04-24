@@ -19,7 +19,38 @@ const localSettingsDescription = {
 loadLocalSettings();
 database = require('@level451/httpServer').database;
 database.on('ff',()=>{console.log('aaaaaaaaaaaaaaaaaaaaaaafffffffffffffffffffffffff')})
-database.getMongoConnection('Home').then((dbo)=> {
+/* const requiredCollections
+Each object in the array requiredCollections is verified that it exists in the database
+if not, the collection is added to the database, and the data is added to the collection
+if the data is an array, it will add each object in the array , otherwise it will just add the data:object
+if the optional index property is included, it will add the indexes
+  see https://docs.mongodb.com/manual/reference/command/createIndexes/ for index instructions
+ */
+const requiredCollections = [
+    {
+        name: 'Users',
+        data: [{
+            userName: 'twitzel',
+            secretKey: 'KQ2HCKLCGF6VER3XERVU6URXNM',
+            accessLevel: 10,
+            displayName: 'Todd',
+            preferences: {webTheme: 'Default'}
+        }, {
+            userName: 'switzel',
+            secretKey: 'KQ2HCKLCGF6VER3XERVU6URXNM',
+            accessLevel: 10,
+            displayName: 'Pops',
+            preferences: {webTheme: 'Default'}
+        }
+        ],
+        index: [{key: {userName: 1}}, {key: {accessLevel: -1}}],
+    },
+    {
+        name: 'Session'
+    },
+    {name: 'errorLog', index: [{key: {mac: 1}}, {key: {timeStamp: 1}}]}
+];
+database.getMongoConnection('Home',requiredCollections).then((dbo)=> {
     global.dbo = dbo
    //  dbo.collection('Session').find({'urlHistory.requestId':database.ObjectID('5cb4bc1d4b02bd3f4cf16921')}).toArray().then((r)=>{console.log('-=---------',r)})
 })
