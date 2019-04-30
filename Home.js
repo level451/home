@@ -26,6 +26,8 @@ if the data is an array, it will add each object in the array , otherwise it wil
 if the optional index property is included, it will add the indexes
   see https://docs.mongodb.com/manual/reference/command/createIndexes/ for index instructions
  */
+httpServer = require('@level451/httpServer')({useHttps: true, port: 2112});
+
 const requiredCollections = [
     {
         name: 'Users',
@@ -52,12 +54,13 @@ const requiredCollections = [
 ];
 database.getMongoConnection('Home',requiredCollections).then((dbo)=> {
     global.dbo = dbo
-   //  dbo.collection('Session').find({'urlHistory.requestId':database.ObjectID('5cb4bc1d4b02bd3f4cf16921')}).toArray().then((r)=>{console.log('-=---------',r)})
+    require('@level451/httpServer').listenHttp()
+
+    //  dbo.collection('Session').find({'urlHistory.requestId':database.ObjectID('5cb4bc1d4b02bd3f4cf16921')}).toArray().then((r)=>{console.log('-=---------',r)})
 })
 //comment this line to use the regular console.log
 console = require('@level451/newConsole');
 const webSocketServer = require('@level451/httpServer').webSocketServer;
-httpServer = require('@level451/httpServer')({useHttps: true, port: 2112});
 
 httpServer.get('/', (req, res) => {
     res.render('homePowerStatus.ejs', {
